@@ -199,15 +199,20 @@ void emulateCycle(Chip8 *chip8){
     else if(nibble1 == 0xC){
         chip8->registers[nibble2] = rand8() & nibble34;
     }
-    else if(nibble1 == 0xD){ ////TO BE CONTINUED
-        drawSprite(chip8, nibble2, nibble3, nibble4);
+    else if(nibble1 == 0xD){ 
+        drawSprite(chip8, chip8->registers[nibble2], chip8->registers[nibble3], nibble4);
     }
     else if(nibble1 == 0xE){ ////TO BE CONTINUED
         switch (nibble34) {
             case 0x9E:
-
+                if(chip8->keys[chip8->registers[nibble2]]){
+                    chip8->pc += 2;
+                }
                 break;
             case 0xA1:
+                if(!chip8->keys[chip8->registers[nibble2]]){
+                    chip8->pc += 2;
+                }
                 break;
         }
     }
