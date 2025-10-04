@@ -47,7 +47,25 @@ void initialize(Chip8 *chip8){
 
 
 }
-
+void drawSprite(Chip8* chip8, uint8_t x, uint8_t y, uint8_t height){
+    //https://tobiasvl.github.io/blog/write-a-chip-8-emulator/#dxyn-display
+    chip8->registers[0xF] = 0;
+    for(uint8_t i = 0; i <  height; i++){
+        uint8_t curRow = chip8->memory[chip8->I + i];
+        for(int j = 0; j < 8; j++){
+            uint8_t pixel = (curRow >> (7-j)) & 0x1; //Eerst van MSB beginnen
+            uint8_t xPos = (x + j)%64;
+            uint8_t yPos = (y + i)%32;
+            if(pixel){
+                if(chip8->screen[yPos*64 + xPos]){
+                    chip8->registers[0xF] = 1;
+                }
+                chip8->screen[yPos*64 + xPos] ^= 1;
+            } 
+        }
+    }
+    chip8->drawFlag = true;
+}
 void emulateCycle(Chip8 *chip8){
     
     uint16_t opcode = (chip8->memory[chip8->pc] << 8) |   (chip8->memory[chip8->pc+1]);
@@ -182,7 +200,7 @@ void emulateCycle(Chip8 *chip8){
         chip8->registers[nibble2] = rand8() & nibble34;
     }
     else if(nibble1 == 0xD){ ////TO BE CONTINUED
-    
+        drawSprite(chip8, nibble2, nibble3, nibble4);
     }
     else if(nibble1 == 0xE){ ////TO BE CONTINUED
         switch (nibble34) {
