@@ -1,6 +1,7 @@
 #ifndef CHIP8_H
 #define CHIP8_H
 
+#include <cstdint>
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -8,6 +9,7 @@ typedef struct{
   bool drawFlag;
   uint8_t memory[4096];
   uint8_t registers[16]; //V0 .. VF
+  uint8_t sp; //stack pointer
   uint16_t I; //Adress Register
   uint16_t stack[16];
   uint8_t sound_timer;
@@ -36,7 +38,6 @@ static const uint8_t font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
-void initialize(Chip8 *chip8); 
 void loadGame(Chip8 *chip8, char *filename);
 void emulateCycle(Chip8 *chip8);
 

@@ -3,20 +3,22 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
-
 void setupGraphics(){
 }
 void setupInput(){
 
 }
+
+void clearScreen(){
+}
+
 void initialize(Chip8 *chip8){
 
 }
 
 void emulateCycle(Chip8 *chip8){
     
-    uint16_t opcode = (chip8->memory[chip8->pc] << 8) |   (chip8->memory[chip8->pc+1] << 8);
+    uint16_t opcode = (chip8->memory[chip8->pc] << 8) |   (chip8->memory[chip8->pc+1]);
     chip8->pc += 2; 
     uint8_t nibble1 = opcode >> 12;
     uint8_t nibble2 = ((opcode >> 8)&0x000F);
@@ -28,7 +30,19 @@ void emulateCycle(Chip8 *chip8){
     uint16_t nibble234 = ((opcode)&0x0FFF);
 
 
-
+    if(nibble1 == 0){
+        switch (opcode) {
+            case 0x00E0:
+                clearScreen();
+                break;
+            case 0x00EE:
+                chip8->sp = chip8->sp - 1;
+                chip8->pc = chip8->stack[chip8->sp];           
+                break;
+            break; 
+        }
+    } 
+    
 
 }
 
