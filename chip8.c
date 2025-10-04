@@ -2,7 +2,18 @@
 #include "chip8.h"
 #include <stdint.h>
 #include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
+
+uint8_t rand8(){
+    srand(time(NULL));
+    uint8_t num = rand() % 256;
+  
+    
+
+    return num;
+}
 void setupGraphics(){
 }
 void setupInput(){
@@ -139,6 +150,88 @@ void emulateCycle(Chip8 *chip8){
              chip8->pc += 2;
         }
     }
+    else if(nibble1 == 0xA){
+        chip8->I = nibble234;
+
+    }
+    else if (nibble1 == 0xB){
+        chip8->pc = chip8->registers[0] + nibble234;
+    }
+    else if(nibble1 == 0xC){
+        chip8->registers[nibble2] = rand8() & nibble34;
+    }
+    else if(nibble1 == 0xD){ ////TO BE CONTINUED
+    
+    }
+    else if(nibble1 == 0xE){ ////TO BE CONTINUED
+        switch (nibble34) {
+            case 0x9E:
+
+                break;
+            case 0xA1:
+                break;
+        }
+    }
+    else if(nibble1 == 0XF){ //// TO BE CONTINUED
+        switch (nibble34) {
+            case 0x07:
+                break;
+            case 0x0A:
+                break;
+            case 0x15:
+                break;
+            case 0x18:
+                break;
+            case 0x1E:
+                break;
+            case 0x29:
+                break;
+            case 0x33:
+                break;
+            case 0x55:
+                break;
+            case 0x65:
+                break;
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
