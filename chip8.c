@@ -216,25 +216,60 @@ void emulateCycle(Chip8 *chip8){
                 break;
         }
     }
-    else if(nibble1 == 0XF){ //// TO BE CONTINUED
+    else if(nibble1 == 0xF){ //// TO BE CONTINUED
         switch (nibble34) {
             case 0x07:
+                chip8->registers[nibble2] = chip8->delay_timer;
                 break;
-            case 0x0A:
-                break;
+            case 0x0A:{
+                //https://tobiasvl.github.io/blog/write-a-chip-8-emulator/#fx0a-get-key
+                bool isPressed = false;
+                for(int i = 0; i < 16; i++){
+                    if(chip8->keys[i]){
+                        chip8->registers[nibble2] = i;
+                        isPressed = true;
+                        break;
+                    }
+                    
+                }
+                if(!isPressed){
+                    chip8->pc -= 2;
+                }
+                    
+            }
+                
             case 0x15:
+                chip8->delay_timer = chip8->registers[nibble2];
                 break;
             case 0x18:
+                chip8->sound_timer = chip8->registers[nibble2];
                 break;
             case 0x1E:
+                chip8->I += chip8->registers[nibble2];
                 break;
             case 0x29:
+                chip8->I = chip8->registers[nibble2]*5;
                 break;
-            case 0x33:
+            case 0x33:{
+
+                    uint8_t tZero = nibble2% 10; //10**0
+                    uint8_t tOne = nibble2/10% 10; //10**1
+                    uint8_t tTwo = nibble2/100%10; //10**2
+                    chip8->memory[chip8->I] = tZero;        
+                    chip8->memory[chip8->I+1] = tOne;        
+                    chip8->memory[chip8->I+2] = tTwo;        
                 break;
+                }
             case 0x55:
+                for(int i = 0; i <= nibble2; i++){
+                    chip8->memory[chip8->I + i] = chip8->registers[i];
+                }
                 break;
+
             case 0x65:
+                for(int i = 0; i <= nibble2; i++){
+                    chip8->registers[i] = chip8->memory[chip8->I+i];
+                }
                 break;
         }
     }
