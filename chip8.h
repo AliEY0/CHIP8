@@ -36,15 +36,12 @@ static const uint8_t font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
 
-void initiliaze(Chip8 *chip8); 
+void initialize(Chip8 *chip8); 
 void loadGame(Chip8 *chip8, char *filename);
 void emulateCycle(Chip8 *chip8);
 
-void setupInput();
 void setKeys();
 
-void setupGraphics();
-void drawGraphics();
 
 
 #endif
