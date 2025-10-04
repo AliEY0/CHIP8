@@ -39,13 +39,18 @@ void emulateCycle(Chip8 *chip8){
                 chip8->sp = chip8->sp - 1;
                 chip8->pc = chip8->stack[chip8->sp];           
                 break;
-            break; 
         }
     } 
     else if(nibble1 == 1){
         chip8->pc = nibble234;        
     }
-
+    else if(nibble1 == 2){
+        if(chip8->sp < 16){
+            chip8->stack[chip8->sp] = chip8->pc;
+            chip8->sp = chip8->sp + 1;
+            chip8->pc = nibble234;     
+        }
+    }
 }
 
 
