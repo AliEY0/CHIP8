@@ -2,8 +2,10 @@
 #define CHIP8_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef struct{
+  bool drawFlag;
   uint8_t memory[4096];
   uint8_t registers[16]; //V0 .. VF
   uint16_t I; //Adress Register
@@ -15,7 +17,7 @@ typedef struct{
   uint16_t pc;
 } Chip8;
 
-const uint8_t font[80] = {
+static const uint8_t font[80] = {
     0xF0, 0x90, 0x90, 0x90, 0xF0, // 0
     0x20, 0x60, 0x20, 0x20, 0x70, // 1
     0xF0, 0x10, 0xF0, 0x80, 0xF0, // 2
@@ -33,5 +35,16 @@ const uint8_t font[80] = {
     0xF0, 0x80, 0xF0, 0x80, 0xF0, // E
     0xF0, 0x80, 0xF0, 0x80, 0x80  // F
 };
+
+void initiliaze(Chip8 *chip8); 
+void loadGame(Chip8 *chip8, char *filename);
+void emulateCycle(Chip8 *chip8);
+
+void setupInput();
+void setKeys();
+
+void setupGraphics();
+void drawGraphics();
+
 
 #endif
