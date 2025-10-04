@@ -12,10 +12,10 @@ Een eenvoudige implementatie van de Chip-8 virtuele machine in C.
 
 Deze emulator voert Chip-8 programma's uit en bevat bijna alle functionaliteit volgens de Chip-8 specificatie.  
 Het project is bijna af, maar `main.c` moet nog herschreven worden.
-
 ## Fotos
-<img width="654" height="356" alt="pong" src="https://github.com/user-attachments/assets/4d84b724-8f6e-4e74-8025-a39b86611ca2" />
+
+![Pong Screenshot](https://github.com/user-attachments/assets/4d84b724-8f6e-4e74-8025-a39b86611ca2)  
 Een screenshot van het klassieke Pong-spel uitgevoerd op de Chip-8 emulator.
 
-<img width="660" height="353" alt="ibm logo" src="https://github.com/user-attachments/assets/751ef615-74c4-4c65-917f-df297d22604f" />
-De IBM-logo demo is een bekende test voor Chip-8 emulatoren om te controleren of de basisfunctionaliteit correct werkt.  
+![IBM Logo Screenshot](https://github.com/user-attachments/assets/751ef615-74c4-4c65-917f-df297d22604f)  
+De IBM-logo demo is een bekende test voor Chip-8 emulatoren om te controleren of de basisfunctionaliteit correct werkt.
