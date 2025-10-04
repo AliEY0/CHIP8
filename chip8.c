@@ -42,9 +42,49 @@ void emulateCycle(Chip8 *chip8){
             break; 
         }
     } 
-    
+    else if(nibble1 == 1){
+        chip8->pc = nibble234;        
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
