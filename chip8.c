@@ -15,6 +15,9 @@ uint8_t rand8(){
 
     return num;
 }
+void drawGraphics(){
+}
+
 void setupGraphics(){
 }
 void setupInput(){
@@ -235,7 +238,7 @@ void emulateCycle(Chip8 *chip8){
                 if(!isPressed){
                     chip8->pc -= 2;
                 }
-                    
+                break;    
             }
                 
             case 0x15:
@@ -252,9 +255,9 @@ void emulateCycle(Chip8 *chip8){
                 break;
             case 0x33:{
 
-                    uint8_t tZero = nibble2% 10; //10**0
-                    uint8_t tOne = nibble2/10% 10; //10**1
-                    uint8_t tTwo = nibble2/100%10; //10**2
+                    uint8_t tZero = chip8->registers[nibble2]% 10; //10**0
+                    uint8_t tOne = chip8->registers[nibble2]/10% 10; //10**1
+                    uint8_t tTwo = chip8->registers[nibble2]/100%10; //10**2
                     chip8->memory[chip8->I] = tZero;        
                     chip8->memory[chip8->I+1] = tOne;        
                     chip8->memory[chip8->I+2] = tTwo;        
@@ -273,111 +276,26 @@ void emulateCycle(Chip8 *chip8){
                 break;
         }
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 void loadGame(Chip8 *chip8, char *filename){
+
 }
 int main(int argc, char **argv) {
-    Chip8 chip8;
+    Chip8 *chip8;
     
     setupGraphics();
     setupInput(); 
 
-    chip8.initialize(chip8);
+    initialize(chip8);
     //chip8.loadGame(    
-
+    while (true) {
+    
+        emulateCycle(chip8);
+        if(chip8->drawFlag)
+            drawGraphics();
+        setKeys();
+    }
 
     return 0;
 }
