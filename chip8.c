@@ -8,20 +8,12 @@
 
 
 uint8_t rand8(){
-    srand(time(NULL));
+//    srand(time(NULL));
     uint8_t num = rand() % 256;
   
     
 
     return num;
-}
-void drawGraphics(){
-}
-
-void setupGraphics(){
-}
-void setupInput(){
-
 }
 
 void clearScreen(Chip8 *chip8){
@@ -73,6 +65,7 @@ void emulateCycle(Chip8 *chip8){
     
     uint16_t opcode = (chip8->memory[chip8->pc] << 8) |   (chip8->memory[chip8->pc+1]);
     chip8->pc += 2; 
+    bool decrementPc = false;
     uint8_t nibble1 = opcode >> 12;
     uint8_t nibble2 = ((opcode >> 8)&0x000F);
     uint8_t nibble3 = ((opcode >> 4)&0x000F);
@@ -89,19 +82,22 @@ void emulateCycle(Chip8 *chip8){
                 clearScreen(chip8);
                 break;
             case 0x00EE:
+                decrementPc = true;
                 chip8->sp = chip8->sp - 1;
                 chip8->pc = chip8->stack[chip8->sp];           
                 break;
         }
     } 
     else if(nibble1 == 1){
+        decrementPc = true;
         chip8->pc = nibble234;        
     }
     else if(nibble1 == 2){
         if(chip8->sp < 16){
             chip8->stack[chip8->sp] = chip8->pc;
             chip8->sp += 1;
-            chip8->pc = nibble234;     
+            chip8->pc = nibble234;
+            decrementPc=true;
         }
     }
     else if(nibble1 == 3){
@@ -276,12 +272,19 @@ void emulateCycle(Chip8 *chip8){
                 break;
         }
     }
+    //if(decrementPc) chip8->pc -= 2;
 }
 
 void loadGame(Chip8 *chip8, char *filename){
+    FILE *rom = fopen(filename, "rb");
+    if (!rom) {
+        exit(1);
+    }
 
+    fread(&chip8->memory[0x200], 1, sizeof(chip8->memory) - 0x200, rom);
+    fclose(rom);
 }
-int main(int argc, char **argv) {
+/*int main(int argc, char **argv) {
     Chip8 *chip8;
     
     setupGraphics();
@@ -299,5 +302,5 @@ int main(int argc, char **argv) {
 
     return 0;
 }
-
+*/
 
