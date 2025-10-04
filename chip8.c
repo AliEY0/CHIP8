@@ -4,6 +4,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 
 
 uint8_t rand8(){
@@ -20,10 +21,30 @@ void setupInput(){
 
 }
 
-void clearScreen(){
+void clearScreen(Chip8 *chip8){
+    for(int i = 0; i < 64 * 32; i++){
+        chip8->screen[i] = 0;
+    }
 }
 
 void initialize(Chip8 *chip8){
+    chip8->I = 0;
+    chip8->pc = 0x200;   // Startadres voor ROM
+    chip8->sp = 0;       // Stack pointer op 0
+    chip8->delay_timer = 0;
+    chip8->sound_timer = 0;
+    
+    memset(chip8->memory, 0, sizeof(chip8->memory));   
+    memset(chip8->registers, 0, sizeof(chip8->registers));
+    memset(chip8->stack, 0, sizeof(chip8->stack));
+    memset(chip8->screen, 0, sizeof(chip8->screen));
+    memset(chip8->keys, 0, sizeof(chip8->keys));
+
+    
+    for (int i = 0; i < 80; i++) {
+        chip8->memory[0x50 + i] = font[i];
+    }
+
 
 }
 
@@ -44,7 +65,7 @@ void emulateCycle(Chip8 *chip8){
     if(nibble1 == 0){
         switch (opcode) {
             case 0x00E0:
-                clearScreen();
+                clearScreen(chip8);
                 break;
             case 0x00EE:
                 chip8->sp = chip8->sp - 1;
