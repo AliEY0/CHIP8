@@ -14,8 +14,8 @@ Deze emulator voert Chip-8 programma's uit en bevat bijna alle functionaliteit v
 Het project is bijna af, maar `main.c` moet nog herschreven worden.
 
 ## Fotos
-<img width="1571" height="983" alt="pong" src="https://github.com/user-attachments/assets/ef524451-2ea9-4b5a-89a5-9cf216810bbc" />
+<img width="654" height="356" alt="pong" src="https://github.com/user-attachments/assets/4d84b724-8f6e-4e74-8025-a39b86611ca2" />
 Een screenshot van het klassieke Pong-spel uitgevoerd op de Chip-8 emulator.
 
-<img width="1571" height="983" alt="ibm logo" src="https://github.com/user-attachments/assets/adc05695-3019-4014-8e14-37804a9f1614" />
+<img width="660" height="353" alt="ibm logo" src="https://github.com/user-attachments/assets/751ef615-74c4-4c65-917f-df297d22604f" />
 De IBM-logo demo is een bekende test voor Chip-8 emulatoren om te controleren of de basisfunctionaliteit correct werkt.  
