@@ -6,7 +6,7 @@ Een eenvoudige implementatie van de Chip-8 virtuele machine in C.
 
 - `chip8.c` - De implementatie van de Chip-8 emulator.  
 - `chip8.h` - Headerbestand met definities en functies voor de emulator.  
-- `main.c` - Bevat de test/entry-point voor de emulator, **niet zelf geschreven**, zal later aangepast of herschreven worden.
+- `main.c` - Gui en init chip8
 
 ## Beschrijving
 
